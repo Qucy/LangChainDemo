@@ -1,0 +1,27 @@
+Hello again, this is Qucy from the D&A Machine Learning team. Today, I'm going to share with you about GitHub Copilot and a Large Language Model library called LangChain. Let's take a look at today's agenda. The first topic is GitHub Copilot. I'll give you a high-level introduction and play a demo video to show you how it can help quickly build an application. After that, we'll dive into the detail a little bit and to see how to write the prompt for Copilot.
+
+The second topic will be an introduction to the Large Language Model library, LangChain. I'll explain what LangChain is and provide a code demo for some specific use cases.
+
+[Explain the PPT and Play the Video]
+
+OK, that's all for the video, it only have 3 minutes, so let's take a look at our souce and prompt.
+
+[Stop sharing and use personal PC to share the source code]
+
+[Explain the prompt and code inside VS code]
+
+
+
+What is LangChain ?
+
+LangChain is a framework designed to empower developers to build applications powered by language models. While many applications may simply call language models via an API, LangChain goes beyond this by enabling applications to be data-aware and agentic.This means that LangChain enables language models to connect with other sources of data and interact with their environment, resulting in even more powerful and differentiated applications.
+
+If you take a look at this chart for star history github, it really started to take off after March.
+
+On the left side of this image, you'll see our Large Language Model services. On the right side, there are various systems and data sources. LangChain is a tool that links these two parties and facilitates their interaction. Both LLM servces and downstream system, data sources are highly customizable. For instance, we can replace them with our own data sources. This allows us to perform question-answering or summarization on our data sources.
+
+
+LangChain provides 7 components, including Schema, Models, Prompts, Memory, Agents, Indexes, and Chains. These components cover data types, LLM interfaces, prompt management, memory state, decision-making agents, document structuring, and sequences of calls. Each component comes with a standard interface, a range of implementations, and examples of use cases. I will not dive detail into all the component but instead let's take a look at some of use cases to get rough idea which component can be used for.
+
+
+
