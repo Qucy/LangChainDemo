@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grouping People</title>
+  <style>
+    /* Existing table styles */
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+
+    /* Container for the title */
+    .title-container {
+      text-align: center; /* Center align the title */
+      margin: 20px 0; /* Add some margin for spacing */
+    }
+
+    /* Style for the title */
+    .title {
+      font-size: 30px; /* Larger text for the title */
+      font-weight: bold; /* Make the title bold */
+    }
+
+    /* Optional: Add some general styling for the page */
+    body {
+      font-family: Arial, sans-serif; /* Use a sans-serif font */
+      padding: 20px; /* Add some padding to the body */
+    }
+
+    /* Style for the grouping results container as a grid */
+    #groupingResults {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      grid-gap: 20px; /* Space between grid items */
+      margin-top: 20px; /* Spacing above the grid */
+    }
+
+    /* Style for each group (table) */
+    table {
+      width: 100%; /* Each table takes the full width of the grid column */
+      border-collapse: collapse;
+    }
+
+    /* Optional: Responsive design for smaller screens */
+    @media (max-width: 600px) {
+      #groupingResults {
+        grid-template-columns: 1fr; /* Single column layout on small screens */
+      }
+    }
+
+    /* Style for table header */
+    th {
+        background-color: #ccc; /* Gray background */
+        font-weight: bold; /* Bold font */
+    }
+  </style>
+</head>
+<body>
+  <div class="title-container">
+    <div class="title">Grouping</div>
+  </div>
+  
+  <div>
+    <label for="groupCount">Number of Groups:</label>
+    <input type="number" id="groupCount" min="1">
+    <button onclick="startGrouping()">Generate</button>
+  </div>
+  
+  <div id="groupingResults"></div>
+  
+  <script>
+    function startGrouping() {
+        var groupCount = parseInt(document.getElementById("groupCount").value);
+        var peopleData = [
+            ['Joe', 'Male', 'Tribe A'], ['Sam', 'Male', 'Tribe A'], ['Mary', 'Female', 'Tribe B'], 
+            ['Chris', 'Male', 'Tribe A'], ['Mary', 'Female', 'Tribe B'], ['Chloe', 'Female', 'Tribe C'], ['Jason', 'Male', 'Tribe C'], 
+            ['Tom', 'Male', 'Tribe A'], ['Betty', 'Female', 'Tribe C'], ['Anna', 'Female', 'Tribe A'], ['Joe', 'Male', 'Tribe A'], 
+            ['Karen', 'Female', 'Tribe B'], ['Sophia', 'Female', 'Tribe B'], ['Jason', 'Male', 'Tribe C'], ['David', 'Male', 'Tribe A'], 
+            ['Brian', 'Male', 'Tribe C'], ['Brian', 'Male', 'Tribe A'], ['Sarah', 'Female', 'Tribe B'], ['Grace', 'Female', 'Tribe A'], 
+            ['Diana', 'Female', 'Tribe A'], ['Megan', 'Female', 'Tribe C'], ['Jason', 'Male', 'Tribe C'], ['Daniel', 'Male', 'Tribe B'], 
+            ['Kevin', 'Male', 'Tribe A'], ['Alex', 'Male', 'Tribe B'], ['Nancy', 'Female', 'Tribe C'], ['Eric', 'Male', 'Tribe B'], ['Mike', 'Male', 'Tribe B'], 
+            ['Lisa', 'Female', 'Tribe C'], ['Lisa', 'Female', 'Tribe B'], ['Mary', 'Female', 'Tribe A'], ['Jason', 'Male', 'Tribe C'], ['Kevin', 'Male', 'Tribe B'], 
+            ['Anna', 'Female', 'Tribe A'], ['Alice', 'Female', 'Tribe B'], ['Betty', 'Female', 'Tribe B'], ['Helen', 'Female', 'Tribe B'], ['Sam', 'Male', 'Tribe A'], 
+            ['Chloe', 'Female', 'Tribe B'], ['Brian', 'Male', 'Tribe A'], ['Grace', 'Female', 'Tribe A'], ['Daniel', 'Male', 'Tribe C'], ['Olivia', 'Female', 'Tribe C'],
+            ['James', 'Male', 'Tribe B'], ['Mark', 'Male', 'Tribe C'], ['Tom', 'Male', 'Tribe C'], ['Mark', 'Male', 'Tribe A'], ['Laura', 'Female', 'Tribe A'], ['Alex', 'Male', 'Tribe A'],
+            ['Helen', 'Female', 'Tribe B'], ['David', 'Male', 'Tribe B'], ['Tom', 'Male', 'Tribe B'], ['Chris', 'Male', 'Tribe C'], ['James', 'Male', 'Tribe B'], ['Ryan', 'Male', 'Tribe A'], 
+            ['Betty', 'Female', 'Tribe A'], ['Julia', 'Female', 'Tribe C'], ['Anna', 'Female', 'Tribe C'], ['Joe', 'Male', 'Tribe C'], ['James', 'Male', 'Tribe A'], ['Alice', 'Female', 'Tribe C'], 
+            ['Jason', 'Male', 'Tribe A'], ['Adam', 'Male', 'Tribe B'], ['Daniel', 'Male', 'Tribe C'], ['Bob', 'Male', 'Tribe A'], ['Ryan', 'Male', 'Tribe B'], ['Clara', 'Female', 'Tribe C'], 
+            ['Emily', 'Female', 'Tribe A'], ['James', 'Male', 'Tribe B'], ['Betty', 'Female', 'Tribe B'], ['Sophia', 'Female', 'Tribe C'], ['Laura', 'Female', 'Tribe B'], ['Mike', 'Male', 'Tribe A'], 
+            ['Betty', 'Female', 'Tribe B'], ['David', 'Male', 'Tribe A'], ['Jane', 'Female', 'Tribe B'], ['Gary', 'Male', 'Tribe A'], ['Daniel', 'Male', 'Tribe A'], ['Matt', 'Male', 'Tribe B'], 
+            ['Adam', 'Male', 'Tribe C'], ['Emily', 'Female', 'Tribe C'], ['Alex', 'Male', 'Tribe C'], ['Lisa', 'Female', 'Tribe B'], ['Bob', 'Male', 'Tribe A'], ['Chloe', 'Female', 'Tribe A'], 
+            ['Tom', 'Male', 'Tribe B'], ['Laura', 'Female', 'Tribe C'], ['Alex', 'Male', 'Tribe B'], ['Nancy', 'Female', 'Tribe A'], ['John', 'Male', 'Tribe C'], ['Julia', 'Female', 'Tribe B'], 
+            ['Ryan', 'Male', 'Tribe A'], ['Kevin', 'Male', 'Tribe A'], ['Diana', 'Female', 'Tribe A'], ['John', 'Male', 'Tribe C'], ['Helen', 'Female', 'Tribe B'], ['Tom', 'Male', 'Tribe B'], 
+            ['David', 'Male', 'Tribe B'], ['Mary', 'Female', 'Tribe C'], ['Lisa', 'Female', 'Tribe B']];
+        
+        // Sort people data to mix tribes and genders
+        peopleData.sort(function(a, b) {
+            if (a[2] === b[2]) { // If tribes are the same, sort by gender
+                return a[1].localeCompare(b[1]);
+            }
+            return a[2].localeCompare(b[2]); // Sort by tribe
+        });
+
+        // Grouping logic
+        var groups = [];
+        for (var i = 0; i < groupCount; i++) {
+            groups.push([]);
+        }
+
+        // Distribute people into groups
+        peopleData.forEach(function(person, index) {
+            var groupIndex = index % groupCount;
+            groups[groupIndex].push(person);
+        });
+
+        // Display grouping results
+        displayGroupResults(groups);
+    }
+
+    function displayGroupResults(groups) {
+        var groupingResultsDiv = document.getElementById("groupingResults");
+        groupingResultsDiv.innerHTML = "";
+
+        groups.forEach(function(group, k) {
+            var table = document.createElement("table");
+            var caption = document.createElement("caption");
+            caption.textContent = "Group " + (k + 1);
+            table.appendChild(caption);
+
+            groupingResultsDiv.appendChild(table);
+
+            // Create and append header row
+            var headerRow = document.createElement("tr");
+            var headerName = document.createElement("th");
+            var headerTribe = document.createElement("th");
+
+            headerName.textContent = "Name";
+            headerTribe.textContent = "Tribe";
+
+            headerRow.appendChild(headerName);
+            headerRow.appendChild(headerTribe);
+            table.appendChild(headerRow);
+
+            // Animate the addition of rows
+            group.forEach(function(person, l) {
+                setTimeout(function() {
+                    var row = document.createElement("tr");
+                    var nameCell = document.createElement("td");
+                    var tribeCell = document.createElement("td");
+
+                    nameCell.textContent = person[0];
+                    tribeCell.textContent = person[2];
+
+                    row.appendChild(nameCell);
+                    row.appendChild(tribeCell);
+
+                    table.appendChild(row);
+                }, l * 500); // 500 milliseconds delay per row
+            });
+        });
+    }
+  </script>
+</body>
+</html>
