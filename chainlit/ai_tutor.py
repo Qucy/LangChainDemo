@@ -71,7 +71,7 @@ Level: Designed for users new to the subject. The AI Tutor should use simple lan
 """
 
 # Redis url for cache
-REDIS_URL = "rediss://:8XAhiZsOj5nVKMcocW7mykYY39usVib7yAzCaFuOpv0=@wpbpoc.redis.cache.windows.net:6380/0"
+REDIS_URL = "your redis url"
 
 @cl.on_chat_start
 async def start():
